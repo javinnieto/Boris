@@ -1,8 +1,0 @@
-Hi Hiring Team,
-
-I recently applied for the Python Open Source Contributor role at YO IT Consulting. As an Electronic Engineer with strong expertise in C/C++, complex algorithm implementation, and embedded systems, I am excited about the opportunity to contribute clean, production-quality code to your projects. 
-
-I would love to connect and discuss how my technical background aligns with your team's needs.
-
-Best regards,
-Javier Nieto

@@ -1,8 +1,0 @@
-Hi Hiring Team,
-
-I recently applied for the Back End Developer (AI Infrastructure) role at Alignerr. As an Electronic Engineer based in Melbourne with a solid background in C/C++, PCB design, robotics, and embedded systems, I am excited about the opportunity to build scalable server-side systems for AI workloads. 
-
-I would love to connect and briefly discuss how my engineering background aligns with your team's goals.
-
-Best regards,
-Javier Nieto

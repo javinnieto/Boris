@@ -3437,5 +3437,71 @@
     "status": "pending",
     "mode": "professional",
     "creativity": 1
+  },
+  "linkedin_4445449650": {
+    "id": "linkedin_4445449650",
+    "title": "Junior Ruby on Rails Developer",
+    "company": "Nitrosend",
+    "url": "https://au.linkedin.com/jobs/view/junior-ruby-on-rails-developer-at-nitrosend-4445449650",
+    "source": "linkedin",
+    "posted_at": "3 minutes ago",
+    "status": "pending",
+    "mode": "professional",
+    "creativity": 1
+  },
+  "linkedin_4445461766": {
+    "id": "linkedin_4445461766",
+    "title": "Graduate Engineer - QLD",
+    "company": "Air Liquide",
+    "url": "https://au.linkedin.com/jobs/view/graduate-engineer-qld-at-air-liquide-4445461766",
+    "source": "linkedin",
+    "posted_at": "2 minutes ago",
+    "status": "pending",
+    "mode": "professional",
+    "creativity": 1
+  },
+  "linkedin_4445462788": {
+    "id": "linkedin_4445462788",
+    "title": "Graduate Engineer - WA",
+    "company": "Air Liquide",
+    "url": "https://au.linkedin.com/jobs/view/graduate-engineer-wa-at-air-liquide-4445462788",
+    "source": "linkedin",
+    "posted_at": "2 minutes ago",
+    "status": "pending",
+    "mode": "professional",
+    "creativity": 1
+  },
+  "linkedin_4443226482": {
+    "id": "linkedin_4443226482",
+    "title": "Stanmore 2027 Graduate Program",
+    "company": "Stanmore Resources Limited",
+    "url": "https://au.linkedin.com/jobs/view/stanmore-2027-graduate-program-at-stanmore-resources-limited-4443226482",
+    "source": "linkedin",
+    "posted_at": "29 minutes ago",
+    "status": "pending",
+    "mode": "professional",
+    "creativity": 1
+  },
+  "linkedin_4442073262": {
+    "id": "linkedin_4442073262",
+    "title": "Junior Compositor",
+    "company": "Glitch Productions",
+    "url": "https://au.linkedin.com/jobs/view/junior-compositor-at-glitch-productions-4442073262",
+    "source": "linkedin",
+    "posted_at": "6 minutes ago",
+    "status": "pending",
+    "mode": "professional",
+    "creativity": 1
+  },
+  "linkedin_4445449929": {
+    "id": "linkedin_4445449929",
+    "title": "Graduate Engineer - VIC",
+    "company": "Air Liquide",
+    "url": "https://au.linkedin.com/jobs/view/graduate-engineer-vic-at-air-liquide-4445449929",
+    "source": "linkedin",
+    "posted_at": "3 minutes ago",
+    "status": "pending",
+    "mode": "professional",
+    "creativity": 1
   }
 }

@@ -1,8 +1,0 @@
-Hi Hiring Team,
-
-I recently applied for the C++ Open Source Contributor role at YO IT Consulting. As an Electronic Engineer with deep specialization in C/C++, PCB design, robotics, and embedded systems, I am very excited about the opportunity to contribute clean, production-quality code to your projects. 
-
-I would love to connect and discuss how my hardware and software background aligns with your goals.
-
-Best regards,
-Javier Nieto
