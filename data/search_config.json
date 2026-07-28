@@ -1,0 +1,123 @@
+{
+  "telegram": {
+    "enabled": true,
+    "bot_token": "8946621552:AAFNGl_5yWcrtLrCV6UrYaEhCyoagD0w3QQ",
+    "chat_id": "920589896",
+    "send_documents": true,
+    "notes": "Para activar notificaciones: cambia enabled a true y coloca tu bot_token y chat_id."
+  },
+  "search_rules": [
+    {
+      "name": "Software & Hardware - Inicial / Para Aprender (Entry/Graduate/Trainee/Junior)",
+      "enabled": true,
+      "mode": "professional",
+      "creativity_level": 1,
+      "require_entry_level_only": true,
+      "keywords": [
+        "Graduate Engineer",
+        "Graduate Developer",
+        "Graduate Electronics",
+        "Graduate Program",
+        "Junior Developer",
+        "Junior Engineer",
+        "Junior Electronics Technician",
+        "Junior Software Developer",
+        "Junior Embedded Engineer",
+        "Junior Hardware Engineer",
+        "Junior PCB",
+        "Trainee Developer",
+        "Trainee Technician",
+        "Trainee Engineer",
+        "Engineering Intern",
+        "Software Intern",
+        "Electronics Intern",
+        "Engineering Cadet",
+        "Electronics Apprentice",
+        "Entry Level Developer",
+        "Entry Level Engineer",
+        "Entry Level Electronics",
+        "Entry Level Technician"
+      ],
+      "exclude_keywords": [
+        "Senior",
+        "Sr",
+        "Sr.",
+        "Staff",
+        "Lead",
+        "Principal",
+        "Manager",
+        "Director",
+        "Chief",
+        "Head of",
+        "Superintendent",
+        "Consultant",
+        "Pharma",
+        "Pharmaceutical",
+        "Clinical",
+        "Medical",
+        "Nurse",
+        "Biomedical",
+        "Civil",
+        "Structural",
+        "Architectural",
+        "Legal",
+        "Sales Representative",
+        "Accounting",
+        "Finance",
+        "Chef"
+      ],
+      "require_any_domain_keyword": [
+        "electronic",
+        "electronics",
+        "embedded",
+        "firmware",
+        "pcb",
+        "hardware",
+        "software",
+        "c++",
+        "python",
+        "fpga",
+        "microcontroller",
+        "mechatronic",
+        "mechatronics",
+        "developer",
+        "engineer",
+        "technician",
+        "robotics",
+        "automation",
+        "iot",
+        "it",
+        "support",
+        "tester",
+        "qa"
+      ],
+      "location": "Australia",
+      "platforms": [
+        "seek",
+        "linkedin"
+      ],
+      "max_age_minutes": 30
+    },
+    {
+      "name": "Técnico / Mantenimiento (Survival)",
+      "enabled": false,
+      "mode": "survival",
+      "creativity_level": 1,
+      "keywords": [
+        "Maintenance Technician",
+        "Mechanical Fitter",
+        "Warehouse"
+      ],
+      "location": "Melbourne VIC",
+      "platforms": [
+        "seek",
+        "linkedin"
+      ],
+      "max_age_minutes": 30
+    }
+  ],
+  "polling": {
+    "interval_seconds": 180,
+    "max_results_per_search": 10
+  }
+}

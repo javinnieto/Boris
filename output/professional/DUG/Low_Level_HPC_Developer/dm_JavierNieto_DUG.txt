@@ -1,0 +1,6 @@
+Hi Hiring Team,
+
+I recently applied for the Low Level HPC Developer position at DUG and wanted to reach out directly. As an Electronic Engineer based in Melbourne with strong expertise in C/C++, embedded systems, and hardware-software integration, I am very excited about your high-performance computing stack. I would love to bring my low-level optimization skills to your R&D team. 
+
+Best regards,
+Javier Nieto

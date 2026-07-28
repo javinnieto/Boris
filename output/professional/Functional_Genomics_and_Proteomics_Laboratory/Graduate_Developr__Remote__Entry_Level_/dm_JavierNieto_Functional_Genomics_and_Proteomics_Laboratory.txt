@@ -1,0 +1,8 @@
+Hi Hiring Team,
+
+I recently applied for the Graduate Developer position at the Functional Genomics and Proteomics Laboratory. As an Electronic Engineer based in Melbourne with a solid background in C/C++, PCB design, robotics, and embedded systems, I am eager to apply my analytical and technical skills to your computational research tools and data pipelines. 
+
+I would love to connect and discuss how my engineering problem-solving skills align with your team.
+
+Best regards,
+Javier Nieto

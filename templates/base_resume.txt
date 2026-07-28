@@ -1,0 +1,55 @@
+Javier Nicolas Nieto
+Electronic Engineer
++61 458 319 336 | javiernieto.ni@gmail.com | Melbourne, VIC 3000 | linkedin.com/in/javinnieto/
+
+PROFESSIONAL PROFILE
+Electronic Engineer (Honours) based in Melbourne on a Working Holiday Visa, with a strong background in embedded software development and microcontroller architectures. Highly proficient in C/C++ programming and proven ability to manage R&D projects from prototyping to implementation.
+
+EDUCATION
+● Bachelor of Electronic Engineering (Honours) | National Technological University | Córdoba, Argentina | Graduated: 2025
+
+PROFESSIONAL EXPERIENCE
+Technical Team Coordinator
+Technology Cluster | La Rioja, Argentina | April 2025 – June 2026
+● Designed and developed an AI-driven humanoid robot based on the InMoov project, utilizing data acquisition + computer vision.
+● Architected AI-integrated software and designed custom PCBs for advanced robotic systems.
+● Conducted technical training programs in 3D Printing and Introductory Robotics.
+
+Electronic Engineering Final Project
+National Technological University (UTN) | Córdoba, Argentina | August – December 2024
+● Engineered a functional model for CubeSat payload using LoRa.
+● Executed selection and integration of high-frequency (HF) electronic components.
+● Integrated sensors using I2C and SPI communication protocols.
+● Developed firmware for ground station communication systems.
+● Documented experimental procedures.
+
+Supervised Professional Internship
+National Technological University (UTN) | Córdoba, Argentina | July – December 2023
+● Developed the HEXSAR project: an hexapod robot for search and rescue operations.
+● Designed and constructed control hardware and performed PCB prototyping.
+● Programmed microcontrollers and implemented sensor communication systems.
+
+Backend Developer
+AVEIT | Córdoba, Argentina | January - December 2024
+● Developed and maintained complex backend architectures using Django and MySQL.
+● Contributed to the maintenance and optimization of a comprehensive management system featuring 11 integrated modules.
+● Spearheaded the backend development of a new 12th module dedicated to user payment management.
+● Onboarded and trained new team members on the tech stack and Scrum methodologies, improving team velocity and workflow alignment.
+
+Freelance 3D Design & Prototyping
+La Rioja, Argentina | January 2019 – January 2022
+● 3D modeling and printing of mechanical parts and functional prototypes for various engineering projects.
+● Performed precision calibration and maintenance of 3D printing hardware.
+● Expert use of SolidWorks, SketchUp, and Ultimaker Cura for optimized print results.
+
+TECHNICAL SKILLS
+● Programming: C++, Python, Matlab.
+● Hardware & Design: PCB Design (KiCad), 3D Modeling (SolidWorks, Fusion 360), FPGA.
+● Communication Protocols: UART, SPI, I2C, LoRa.
+● Software & AI: AI Software Development, Backend with Django, HTML/CSS, GIT, Linux, ROS, RTOS.
+● Embedded Systems & Firmware: Microcontrollers (STM32/ESP32/AVR), RTOS, Firmware Debugging.
+
+
+LANGUAGES
+● Spanish: Native.
+● English: Advanced (IELTS Overall Band Score: 7 [C1]).
