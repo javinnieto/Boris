@@ -322,12 +322,14 @@ def process_telegram_callbacks(config, offset):
         result = subprocess.run(cmd, capture_output=True, text=True)
 
         if result.returncode == 0:
+            job_url = job_info.get("url", "")
+            link_html = f"🔗 <a href='{job_url}'>Ir a la oferta de empleo</a>\n\n" if job_url else ""
             telegram_notifier.edit_telegram_message(
                 bot_token, chat_id, msg_id,
-                f"✅ <b>¡LISTO! ({label})</b>\n\n"
+                f"✅ <b>¡PROCESADO CON ÉXITO! ({label})</b>\n\n"
                 f"📌 <b>{job_info['title']}</b> en <b>{job_info['company']}</b>\n"
-                f"🔗 <a href='{job_info['url']}'><b>Postularte directamente aquí</b></a>\n\n"
-                f"📄 Documentos adjuntos listos para enviar."
+                f"{link_html}"
+                f"📄 Documentos enviados a continuación."
             )
             jobs_db[job_key]["status"] = "completed"
         else:

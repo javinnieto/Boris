@@ -133,15 +133,14 @@ def notify_job_completed(telegram_config, job_data, output_folder, dm_text=""):
     title = job_data.get('title', 'Puesto no especificado')
     company = job_data.get('company', 'Empresa no especificada')
     job_url = job_data.get('url', '')
+    
     source = "Seek" if "seek.com" in job_url else "LinkedIn" if "linkedin.com" in job_url else "Portal Web"
-    
-    url_line = f"🔗 <a href='{job_url}'><b>Ir a la oferta directa en {source}</b></a>\n\n" if job_url else ""
-    
+    link_html = f"🔗 <a href='{job_url}'><b>Postular en {source}</b></a>\n\n" if job_url else ""
+
     msg = (
-        f"✅ <b>¡DOCUMENTOS GENERADOS CON ÉXITO!</b>\n\n"
-        f"📌 <b>{title}</b> en <b>{company}</b>\n"
-        f"{url_line}"
-        f"📁 Guardados en: <code>{output_folder}</code>\n\n"
+        f"✅ <b>¡DOCUMENTOS LISTOS PARA POSTULAR!</b>\n\n"
+        f"📌 <b>{title}</b> — <b>{company}</b>\n"
+        f"{link_html}"
         f"📩 <b>Mensaje Directo (DM) listo para copiar:</b>\n"
         f"<code>{dm_text}</code>"
     )
