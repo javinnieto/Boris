@@ -1,0 +1,22 @@
+name: Deploy Automático a Google Cloud
+
+on:
+  push:
+    branches: [ main ] # Cambiá a 'master' si tu rama principal se llama así
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conectar por SSH y actualizar
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_HOST }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            cd /home/javiernieto_ni/Boris
+            git pull origin main
+            source venv/bin/activate
+            pip install -r requirements.txt
+            sudo systemctl restart boris
