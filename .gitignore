@@ -1,3 +1,5 @@
 output/professional/*
+!output/professional/.gitkeep
 
 output/survival/*
+!output/survival/.gitkeep
