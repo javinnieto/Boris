@@ -152,126 +152,22 @@ def scrape_seek(url):
         print(f"Error al procesar Seek: {e}")
         return handle_manual_paste_fallback(url)
 
-def scrape_linkedin(url):
-    print(f"Buscando en LinkedIn: {url}")
-    html_text = fetch_url_content(url)
-    if not html_text:
-        return handle_manual_paste_fallback(url)
-
-    try:
-        soup = BeautifulSoup(html_text, 'html.parser')
-        raw_page_text = soup.get_text(separator=' ', strip=True)
-        title = None
-        company = None
-        description = None
-
-        json_ld = parse_json_ld(soup)
-        if json_ld:
-            title = json_ld.get('title')
-            org = json_ld.get('hiringOrganization')
-            if isinstance(org, dict):
-                company = org.get('name')
-            description = json_ld.get('description')
-            if description:
-                desc_soup = BeautifulSoup(description, 'html.parser')
-                description = desc_soup.get_text(separator='\n', strip=True)
-
-        if not title:
-            t_elem = soup.find('h1', class_='top-card-layout__title') or soup.find('h1')
-            if t_elem:
-                title = t_elem.text.strip()
-            else:
-                og_title = soup.find('meta', property='og:title')
-                if og_title and og_title.get('content'):
-                    title = og_title['content'].strip()
-
-        if not company:
-            c_elem = soup.find('a', class_='topcard__org-name-link') or soup.find('span', class_='topcard__flavor')
-            if c_elem:
-                company = c_elem.text.strip()
-
-        if not description:
-            desc_element = soup.find('div', class_='description__text') or soup.find('section', class_='show-more-less-html')
-            if desc_element:
-                description = desc_element.get_text(separator='\n', strip=True)
-
-        if not title or title == "Título no encontrado" or not company:
-            return handle_manual_paste_fallback(url)
-
-        return {
-            'title': title,
-            'company': company,
-            'description': description or "Descripción no disponible",
-            'raw_page_text': raw_page_text,
-            'url': url
-        }
-    except Exception as e:
-        print(f"Error al procesar LinkedIn: {e}")
-        return handle_manual_paste_fallback(url)
-
-def scrape_generic(url):
-    print(f"Buscando en portal de empleos (Jora/Indeed/Gumtree/Directo): {url}")
-    html_text = fetch_url_content(url)
-    if not html_text:
-        print("\n[!] El sitio web bloqueó el acceso directo (Protección Anti-Bot 403).")
-        return handle_manual_paste_fallback(url)
-
-    try:
-        soup = BeautifulSoup(html_text, 'html.parser')
-        raw_page_text = soup.get_text(separator=' ', strip=True)
-        title = None
-        company = None
-        description = None
-        
-        json_ld = parse_json_ld(soup)
-        if json_ld:
-            title = json_ld.get('title')
-            org = json_ld.get('hiringOrganization')
-            if isinstance(org, dict):
-                company = org.get('name')
-            elif isinstance(org, str):
-                company = org
-            description = json_ld.get('description')
-            if description:
-                desc_soup = BeautifulSoup(description, 'html.parser')
-                description = desc_soup.get_text(separator='\n', strip=True)
-
-        if not title:
-            t_elem = soup.find('h1') or soup.find('h2')
-            if t_elem:
-                title = t_elem.text.strip()
-            else:
-                page_title = soup.find('title')
-                if page_title:
-                    title = page_title.text.split('-')[0].split('|')[0].strip()
-
-        if not company:
-            meta_author = soup.find('meta', {'name': 'author'}) or soup.find('meta', {'property': 'og:site_name'})
-            if meta_author and meta_author.get('content'):
-                company = meta_author['content'].strip()
-
-        if not description:
-            main_sec = soup.find('main') or soup.find('article') or soup.find('div', class_=lambda c: c and 'job' in str(c).lower())
-            if main_sec:
-                description = main_sec.get_text(separator='\n', strip=True)
-            else:
-                description = raw_page_text[:3000]
-
-        if not title or len(title) > 80 or not company or len(company) > 60:
-            return handle_manual_paste_fallback(url)
-
-        return {
-            'title': title,
-            'company': company,
-            'description': description or "Descripción no disponible",
-            'raw_page_text': raw_page_text,
-            'url': url
-        }
-    except Exception as e:
-        print(f"\n[!] Error al procesar portal: {e}")
-        return handle_manual_paste_fallback(url)
-
 def handle_manual_paste_fallback(url):
+    import sys
+    # En servidores / subprocesos (sin terminal interactiva), no intentar input()
+    if not sys.stdin.isatty():
+        print("[Scraper] Modo no-interactivo detectado. Generando datos de fallback desde la URL...")
+        url_clean = url.split("?")[0].rstrip("/")
+        slug = url_clean.split("/")[-1]
+        title = slug.replace("-", " ").title() if slug else "Job Position"
+        return {
+            'title': title[:60],
+            'company': "Company",
+            'description': f"Job opportunity at {url}",
+            'raw_page_text': f"Job posting for {title}",
+            'url': url
+        }
+
     print("\nNo te preocupes, podés pegar todo el texto del aviso de una sola vez:")
     pasted_text = get_multiline_input("PEGA EL ANUNCIO DE TRABAJO COMPLETO")
     
@@ -296,6 +192,89 @@ def handle_manual_paste_fallback(url):
         'raw_page_text': pasted_text,
         'url': url
     }
+
+def scrape_linkedin(url):
+    print(f"Buscando en LinkedIn: {url}")
+    
+    # Extraer ID de trabajo de LinkedIn
+    job_id = None
+    if "jobs/view/" in url or "jobs/view" in url:
+        parts = url.split("view/")[-1].strip("/").split("?")[0].split("-")
+        potential_id = parts[-1]
+        if potential_id.isdigit():
+            job_id = potential_id
+
+    html_text = None
+    # 1. Intentar la API Guest de LinkedIn (no requiere login, 100% funcional en GCP)
+    if job_id:
+        guest_url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
+        print(f" -> Usando LinkedIn Guest API ({guest_url})...")
+        html_text = fetch_url_content(guest_url)
+
+    # 2. Fallback a la URL directa si la API Guest falla
+    if not html_text:
+        html_text = fetch_url_content(url)
+
+    if not html_text:
+        return handle_manual_paste_fallback(url)
+
+    try:
+        soup = BeautifulSoup(html_text, 'html.parser')
+        raw_page_text = soup.get_text(separator=' ', strip=True)
+        title = None
+        company = None
+        description = None
+
+        json_ld = parse_json_ld(soup)
+        if json_ld:
+            title = json_ld.get('title')
+            org = json_ld.get('hiringOrganization')
+            if isinstance(org, dict):
+                company = org.get('name')
+            description = json_ld.get('description')
+            if description:
+                desc_soup = BeautifulSoup(description, 'html.parser')
+                description = desc_soup.get_text(separator='\n', strip=True)
+
+        if not title:
+            t_elem = (soup.find('h1', class_='top-card-layout__title') or 
+                      soup.find('h2', class_='top-card-layout__title') or
+                      soup.find('h1', class_='topcard__title') or
+                      soup.find('h1'))
+            if t_elem:
+                title = t_elem.text.strip()
+            else:
+                og_title = soup.find('meta', property='og:title')
+                if og_title and og_title.get('content'):
+                    title = og_title['content'].strip()
+
+        if not company:
+            c_elem = (soup.find('a', class_='topcard__org-name-link') or 
+                      soup.find('span', class_='topcard__flavor') or
+                      soup.find('a', class_='top-card-layout__first-subrow-link'))
+            if c_elem:
+                company = c_elem.text.strip()
+
+        if not description:
+            desc_element = (soup.find('div', class_='description__text') or 
+                            soup.find('section', class_='show-more-less-html') or
+                            soup.find('div', class_='show-more-less-html__markup'))
+            if desc_element:
+                description = desc_element.get_text(separator='\n', strip=True)
+
+        if not title or title == "Título no encontrado" or not company:
+            return handle_manual_paste_fallback(url)
+
+        return {
+            'title': title,
+            'company': company,
+            'description': description or "Descripción no disponible",
+            'raw_page_text': raw_page_text,
+            'url': url
+        }
+    except Exception as e:
+        print(f"Error al procesar LinkedIn: {e}")
+        return handle_manual_paste_fallback(url)
 
 def get_job_data(url):
     if "seek.com" in url:
