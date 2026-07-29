@@ -231,6 +231,8 @@ def _make_paragraph(text, bold=False, italic=False, ref_rpr=None,
     return p
 
 
+
+
 def inject_experience_section(doc, experience_blocks):
     """
     Busca {{EXPERIENCE_SECTION}} y reemplaza con bloques de experiencia formateados.
@@ -481,21 +483,35 @@ def build_cover_letter_from_template(body_text, output_path, template_path="base
 # ─────────────────────────────────────────────────────────────────────────────
 
 def convert_to_pdf(docx_path, output_dir):
+    """
+    Convierte un .docx a PDF usando LibreOffice en modo headless.
+    En servidores Ubuntu sin display, se requiere DISPLAY no seteado o Xvfb.
+    Instalación: sudo apt install -y libreoffice-nogui
+    """
     print(f"Convirtiendo {os.path.basename(docx_path)} a PDF...")
     try:
+        env = os.environ.copy()
+        # Evitar errores de display en servidores headless sin X11
+        env.pop("DISPLAY", None)
+        env["HOME"] = os.path.expanduser("~")
+
         cmd = ["libreoffice", "--headless", "--convert-to", "pdf", "--outdir", output_dir, docx_path]
-        res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        res = subprocess.run(cmd, capture_output=True, text=True, env=env)
+
         if res.returncode == 0:
             pdf_path = docx_path.replace(".docx", ".pdf")
             print(f" -> PDF generado: {os.path.basename(pdf_path)}")
             return pdf_path
         else:
-            print(f" -> LibreOffice no pudo convertir a PDF (código {res.returncode}). Se conserva el archivo .docx")
+            print(f" -> LibreOffice falló (código {res.returncode}).")
+            if res.stderr:
+                print(f"    STDERR: {res.stderr.strip()[:400]}")
+            print("    Tip: En el servidor corré 'which libreoffice' y 'libreoffice --version' para verificar.")
             return None
     except FileNotFoundError:
-        print("\n[!] LibreOffice no instalado. Instalalo en WSL con:")
-        print("  sudo apt update && sudo apt install -y libreoffice-nogui")
+        print("[!] LibreOffice no encontrado en el servidor.")
+        print("    Instalalo con: sudo apt update && sudo apt install -y libreoffice-nogui")
         return None
     except Exception as e:
-        print(f" -> Error en conversión PDF: {e}")
+        print(f" -> Error inesperado en conversión PDF: {e}")
         return None

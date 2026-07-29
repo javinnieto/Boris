@@ -149,8 +149,9 @@ def notify_job_completed(telegram_config, job_data, output_folder, dm_text=""):
     
     if send_docs and os.path.exists(output_folder):
         for root, _, files in os.walk(output_folder):
-            for file in files:
-                if file.endswith('.pdf') or file.endswith('.docx') or file.endswith('.txt'):
+            for file in sorted(files):
+                # Enviar ÚNICAMENTE archivos .pdf (excluir .docx y .txt)
+                if file.endswith('.pdf'):
                     fpath = os.path.join(root, file)
                     send_telegram_document(bot_token, chat_id, fpath, caption=f"📄 {file}")
 
