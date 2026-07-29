@@ -333,13 +333,28 @@ def process_telegram_callbacks(config, offset):
             )
             jobs_db[job_key]["status"] = "completed"
         else:
-            err = result.stderr[-300:] if result.stderr else "desconocido"
+            # Capturar tanto stdout como stderr para no obtener 'desconocido'
+            full_output = (result.stdout + "\n" + result.stderr).strip()
+            
+            # Guardar el log completo de error en data/last_error.log para inspección fácil
+            err_log_path = os.path.join(DATA_DIR, "last_error.log")
+            try:
+                with open(err_log_path, "w", encoding="utf-8") as f:
+                    f.write(f"=== ERROR PROCESANDO {job_info['title']} ({job_info['url']}) ===\n")
+                    f.write(full_output)
+            except Exception:
+                pass
+
+            # Extraer las últimas líneas relevantes para mostrar en Telegram
+            lines = [line.strip() for line in full_output.splitlines() if line.strip()]
+            relevant_err = "\n".join(lines[-4:]) if lines else "Error sin salida registrada"
+            
             telegram_notifier.edit_telegram_message(
                 bot_token, chat_id, msg_id,
                 f"⚠️ <b>Error generando documentos para:</b>\n{job_info['title']}\n\n"
-                f"<code>{err}</code>"
+                f"<code>{relevant_err}</code>"
             )
-            print(f"[Bot] Error en main.py:\n{result.stderr}")
+            print(f"[Bot] Error en main.py ({job_info['title']}):\n{full_output}")
 
         save_json(jobs_db_path, jobs_db)
 
