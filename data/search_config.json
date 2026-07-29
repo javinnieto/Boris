@@ -1,4 +1,6 @@
 {
+  "gemini_api_key": "AQ.Ab8RN6LH10cWnr9msbhmXtXRJnjKfoo3UdGK3WXGNWx1VYdLqQ",
+  "google_sheet_webapp_url": "https://script.google.com/macros/s/AKfycbwm2Vup9P4opHh1kc4_3KAXsTtGN2pL0wsoRxMe_gvd52i7dv_haxjwrsRDdHQzd5wW0w/exec",
   "telegram": {
     "enabled": true,
     "bot_token": "8946621552:AAFNGl_5yWcrtLrCV6UrYaEhCyoagD0w3QQ",

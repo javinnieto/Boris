@@ -24,7 +24,18 @@ def log_application(company, job_title, url, tracker_file=None):
 
     # 1. Intentar registrar en Google Sheets si la URL del Webapp está configurada
     webapp_url = os.environ.get("GOOGLE_SHEET_WEBAPP_URL")
-    if webapp_url:
+    if not webapp_url:
+        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        config_path = os.path.join(root_dir, "data", "search_config.json")
+        try:
+            if os.path.exists(config_path):
+                with open(config_path, "r", encoding="utf-8") as f:
+                    cfg = json.load(f)
+                    webapp_url = cfg.get("google_sheet_webapp_url")
+        except Exception:
+            pass
+
+    if webapp_url and webapp_url != "YOUR_GOOGLE_SHEET_WEBAPP_URL":
         print("Enviando datos a tu Google Sheet en la nube...")
         payload = {
             "fecha":   fecha_actual,

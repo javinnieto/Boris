@@ -7,11 +7,22 @@ from google.genai import types
 def get_client():
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
-        print("ERROR: No se encontró GEMINI_API_KEY en las variables de entorno.")
-        print("Para obtener tu clave gratis ve a: https://aistudio.google.com/app/apikey")
-        print("En Linux (WSL) ejecuta esto en la terminal antes de correr el script:")
-        print("export GEMINI_API_KEY='tu_clave_aqui'")
+        # Fallback: intentar cargar la clave desde data/search_config.json
+        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        config_path = os.path.join(root_dir, "data", "search_config.json")
+        try:
+            if os.path.exists(config_path):
+                with open(config_path, "r", encoding="utf-8") as f:
+                    cfg = json.load(f)
+                    api_key = cfg.get("gemini_api_key") or cfg.get("gemini", {}).get("api_key")
+        except Exception:
+            pass
+
+    if not api_key or api_key in ("YOUR_GEMINI_API_KEY", "YOUR_GEMINI_KEY"):
+        print("ERROR: No se encontró GEMINI_API_KEY en las variables de entorno ni en data/search_config.json.")
+        print("Configurá tu clave en data/search_config.json bajo 'gemini_api_key': 'TU_CLAVE'")
         return None
+
     return genai.Client(api_key=api_key)
 
 def get_clean_models(client):
