@@ -100,10 +100,9 @@ def send_job_alert_interactive(telegram_config, job_data, job_key):
     source = "Seek" if "seek.com" in job_url else "LinkedIn" if "linkedin.com" in job_url else "Portal Web"
     
     msg = (
-        f"🚨 <b>NUEVA OFERTA PUBLICADA EN {source.upper()}</b>\n\n"
-        f"📌 <b>Título:</b> {title}\n"
-        f"🏢 <b>Empresa:</b> {company}\n"
-        f"🔗 <a href='{job_url}'>Ver oferta completa en {source}</a>\n\n"
+        f"📌 <b>{title}</b>\n"
+        f"🏢 <b>{company}</b> (vía {source})\n"
+        f"🔗 <a href='{job_url}'>Ver oferta en {source}</a>\n\n"
         f"👉 <i>¿Querés generar los documentos para esta oferta?</i>"
     )
     
